@@ -38,6 +38,7 @@ public class ClientRestController {
 
     @PostMapping("/admin/update")
     public ResponseEntity<User> updateUser(@RequestParam Long id, String firstName, String password, String lastName, String email, int age, String role) {
+
         userService.updateUser(new UserDTO(id, firstName, lastName, email, age, password, role));
         return new ResponseEntity<>(HttpStatus.OK);
     }

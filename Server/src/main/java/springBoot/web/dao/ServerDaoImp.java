@@ -1,6 +1,7 @@
 package springBoot.web.dao;
 
 import org.springframework.stereotype.Repository;
+import springBoot.web.model.Role;
 import springBoot.web.model.User;
 
 import javax.persistence.EntityManager;
@@ -17,7 +18,16 @@ public class ServerDaoImp implements UserDao {
     public List<User> getAllUsers() {
         return entityManager.createQuery("from User", User.class).getResultList();
     }
+    @Override
+    public void addRole(Role role){
+        entityManager.persist(role);
+    }
 
+    @Override
+    public Role getRoleByName(String name) {
+        return (Role) entityManager.createQuery("SELECT u FROM Role u WHERE u.name =?1")
+                .setParameter(1, name).getSingleResult();
+    }
     @Override
     public void addUser(User user) {
         entityManager.persist(user);

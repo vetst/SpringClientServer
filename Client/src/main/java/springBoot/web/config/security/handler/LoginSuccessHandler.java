@@ -1,4 +1,4 @@
-package springBoot.web.config.handler;
+package springBoot.web.config.security.handler;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;

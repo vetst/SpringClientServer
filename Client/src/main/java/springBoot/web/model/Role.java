@@ -2,7 +2,6 @@ package springBoot.web.model;
 
 import org.springframework.security.core.GrantedAuthority;
 
-
 public class Role implements GrantedAuthority {
 
     private long id;
@@ -30,7 +29,6 @@ public class Role implements GrantedAuthority {
     public void setName(String name) {
         this.name = name;
     }
-
 
     @Override
     public String toString() {

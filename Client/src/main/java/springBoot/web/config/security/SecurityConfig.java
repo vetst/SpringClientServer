@@ -1,7 +1,6 @@
 package springBoot.web.config.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -13,8 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import springBoot.web.config.handler.LoginSuccessHandler;
-
+import springBoot.web.config.security.handler.LoginSuccessHandler;
 
 @Configuration
 @ComponentScan("springBoot")
@@ -65,8 +63,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //страницы аутентификаци доступна всем
                 .antMatchers("/login").anonymous()
                 // защищенные URL
-                .antMatchers("/api/admin/*").access("hasAuthority('ADMIN')")
-                .antMatchers("/api/user/*").access("hasAuthority('USER')");
+                .antMatchers("/api/admin/*").hasAuthority("ADMIN")
+                .antMatchers("/api/user/*").hasAuthority("USER");
     }
 
     @Bean

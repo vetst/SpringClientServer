@@ -1,5 +1,6 @@
 package springBoot.web.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import springBoot.web.model.User;
 import springBoot.web.model.UserDTO;
+import springBoot.web.util.UtilService;
 
 import java.util.Objects;
 
@@ -19,6 +21,12 @@ import java.util.Objects;
 public class ClientServiceImp implements UserService, UserDetailsService {
 
     private RestTemplate restTemplate;
+    private UtilService utilService;
+
+    @Autowired
+    public void setUtilService(UtilService utilService) {
+        this.utilService = utilService;
+    }
 
     public ClientServiceImp(RestTemplateBuilder restTemplateBuilder) {
         this.restTemplate = restTemplateBuilder
@@ -56,13 +64,12 @@ public class ClientServiceImp implements UserService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) {
-
         HttpHeaders headers = new HttpHeaders();
         HttpEntity request = new HttpEntity(headers);
-        return new User((Objects.requireNonNull(restTemplate.exchange("/getUser?email=" + email,
+        return  utilService.getConvertToUser(Objects.requireNonNull(restTemplate.exchange("/getUser?email=" + email,
                 HttpMethod.POST,
                 request,
                 UserDTO.class)
-                .getBody())));
+                .getBody()));
     }
 }

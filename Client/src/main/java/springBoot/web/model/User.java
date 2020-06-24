@@ -4,7 +4,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
 
 public class User implements UserDetails {
@@ -27,15 +26,15 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
-    public User(UserDTO userDTO) {
-        this.id = userDTO.getId();
-        this.firstName = userDTO.getFirstName();
-        this.lastName = userDTO.getLastName();
-        this.email = userDTO.getEmail();
-        this.age = userDTO.getAge();
-        this.password = userDTO.getPassword();
-        this.roles = setRoles(userDTO.getRoles());
-    }
+//    public User(UserDTO userDTO) {
+//        this.id = userDTO.getId();
+//        this.firstName = userDTO.getFirstName();
+//        this.lastName = userDTO.getLastName();
+//        this.email = userDTO.getEmail();
+//        this.age = userDTO.getAge();
+//        this.password = userDTO.getPassword();
+//        this.roles = getRoles();
+//    }
 
     public User(String firstName, String lastName, String email, int age, String password) {
         this.firstName = firstName;
@@ -43,6 +42,10 @@ public class User implements UserDetails {
         this.email = email;
         this.age = age;
         this.password = password;
+    }
+
+    public User() {
+
     }
 
     public long getId() {
@@ -131,18 +134,4 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
-// Принимаем строку с ролями из userDTO и распределяем роли для User
-    public Set<Role> setRoles(String role) {
-        Set<Role> roles = new HashSet<>();
-        try {
-            String[] partsRole = role.split("[, ]");
-            roles.add(new Role(partsRole[1]));
-            roles.add(new Role(partsRole[0]));
-            return this.roles = roles;
-        } catch (Exception e) {
-
-        }
-        roles.add(new Role(role));
-        return this.roles = roles;
-    }
 }

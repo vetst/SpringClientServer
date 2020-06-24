@@ -25,12 +25,15 @@ public class InitServiceImpl implements InitService {
     public void addAdminAndUser() {
         if (!userDao.isNotReg("admin@mail.com")) {
 
+            userDao.addRole(new Role("ADMIN"));
+            userDao.addRole(new Role("USER"));
             Set<Role> admin = new HashSet<>();
-            admin.add(new Role("ADMIN"));
-            admin.add(new Role("USER"));
+            admin.add(userDao.getRoleByName("ADMIN"));
+            admin.add(userDao.getRoleByName("USER"));
             userDao.addUser(new User("Иван", "admin", "Иванов", "admin@mail.com", 35, admin));
+
             Set<Role> user = new HashSet<>();
-            user.add(new Role("USER"));
+            user.add(userDao.getRoleByName("USER"));
             userDao.addUser(new User("Петр", "user", "Петров", "user@mail.com", 25, user));
         }
     }

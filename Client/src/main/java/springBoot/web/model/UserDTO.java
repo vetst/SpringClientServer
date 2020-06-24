@@ -1,6 +1,7 @@
 package springBoot.web.model;
 
 import java.io.Serializable;
+import java.util.Set;
 
 public class UserDTO implements Serializable {
 
@@ -28,7 +29,6 @@ public class UserDTO implements Serializable {
         this.age = age;
         this.password = password;
         this.roles = roles;
-
     }
 
     public UserDTO(String firstName, String lastName, String email, int age, String password, String roles) {
@@ -38,6 +38,23 @@ public class UserDTO implements Serializable {
         this.age = age;
         this.password = password;
         this.roles = roles;
+    }
+
+    public UserDTO(String firstName, String lastName, String email, int age, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.age = age;
+        this.password = password;
+    }
+
+    public UserDTO(Long id, String firstName, String lastName, String email, int age, String password) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.age = age;
+        this.password = password;
     }
 
     public long getId() {

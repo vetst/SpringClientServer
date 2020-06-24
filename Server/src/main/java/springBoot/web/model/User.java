@@ -1,11 +1,6 @@
 package springBoot.web.model;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -26,7 +21,12 @@ public class User {
     @Column(name = "password")
     private String password;
     @Column
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+
+    @ManyToMany (fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "users_id"),
+            inverseJoinColumns = @JoinColumn(name = "roles_id"))
     private Set<Role> roles;
 
     public User() {
@@ -40,7 +40,6 @@ public class User {
         this.email = userDTO.getEmail();
         this.age = userDTO.getAge();
         this.password = userDTO.getPassword();
-        this.roles = setRoles(userDTO.getRoles());
     }
 
     public User(String firstName, String password, String lastName, String email, int age) {
@@ -134,21 +133,6 @@ public class User {
 
     public void setAge(int age) {
         this.age = age;
-    }
-
-    // Принимаем строку с ролями из userDTO и распределяем роли для User
-    public Set<Role> setRoles(String role) {
-        Set<Role> roles = new HashSet<>();
-        try {
-            String[] partsRole = role.split("[, ]");
-            roles.add(new Role(partsRole[1]));
-            roles.add(new Role(partsRole[0]));
-            return this.roles = roles;
-        } catch (Exception e) {
-
-        }
-        roles.add(new Role(role));
-        return this.roles = roles;
     }
 
 }
