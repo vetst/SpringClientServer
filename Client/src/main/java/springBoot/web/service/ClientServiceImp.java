@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import org.springframework.web.client.RestTemplate;
-import springBoot.web.model.User;
 import springBoot.web.model.UserDTO;
 import springBoot.web.util.UtilService;
 

@@ -18,6 +18,7 @@ public class ServerDaoImp implements UserDao {
     public List<User> getAllUsers() {
         return entityManager.createQuery("from User", User.class).getResultList();
     }
+
     @Override
     public void addRole(Role role){
         entityManager.persist(role);
@@ -28,6 +29,7 @@ public class ServerDaoImp implements UserDao {
         return (Role) entityManager.createQuery("SELECT u FROM Role u WHERE u.name =?1")
                 .setParameter(1, name).getSingleResult();
     }
+
     @Override
     public void addUser(User user) {
         entityManager.persist(user);

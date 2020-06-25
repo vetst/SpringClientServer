@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import springBoot.web.dao.UserDao;
 import springBoot.web.model.User;
+import springBoot.web.util.UtilService;
 
 import java.util.List;
 
@@ -12,6 +13,12 @@ import java.util.List;
 public class ServerServiceImp implements UserService {
 
     private UserDao dao;
+    private UtilService utilService;
+
+    @Autowired
+    public void setUtilService(UtilService utilService) {
+        this.utilService = utilService;
+    }
 
     @Autowired
     public ServerServiceImp(UserDao dao) {
@@ -27,6 +34,7 @@ public class ServerServiceImp implements UserService {
     @Override
     public boolean addUser(User user) {
         if (user != null) {
+
             dao.addUser(user);
             return true;
         }
