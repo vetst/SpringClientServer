@@ -11,8 +11,7 @@ public interface UserService {
 
     public void addUser(UserDTO userDTO);
 
-     public void removeUser(UserDTO userDTO);
+    public void removeUser(UserDTO userDTO);
 
     public void updateUser(UserDTO userDTO);
-
 }

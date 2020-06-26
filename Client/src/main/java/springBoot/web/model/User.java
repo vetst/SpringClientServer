@@ -26,16 +26,6 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
-//    public User(UserDTO userDTO) {
-//        this.id = userDTO.getId();
-//        this.firstName = userDTO.getFirstName();
-//        this.lastName = userDTO.getLastName();
-//        this.email = userDTO.getEmail();
-//        this.age = userDTO.getAge();
-//        this.password = userDTO.getPassword();
-//        this.roles = getRoles();
-//    }
-
     public User(String firstName, String lastName, String email, int age, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -133,5 +123,4 @@ public class User implements UserDetails {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
-
 }

@@ -6,6 +6,7 @@ public class Role implements GrantedAuthority {
 
     private long id;
     private String name;
+
     public Role() {
 
     }

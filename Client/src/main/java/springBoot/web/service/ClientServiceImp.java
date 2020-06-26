@@ -1,6 +1,7 @@
 package springBoot.web.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -19,8 +20,12 @@ import java.util.Objects;
 @Service
 public class ClientServiceImp implements UserService, UserDetailsService {
 
-    @Autowired
     private RestTemplate restTemplate;
+
+    @Autowired
+    public ClientServiceImp(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
     private UtilService utilService;
 

@@ -8,7 +8,7 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 public class ClientUserController {
-    
+
     @GetMapping("/panel")
     public String getTable(Model model, HttpSession session) {
         model.addAttribute("user", session.getAttribute("user"));

@@ -7,8 +7,8 @@ import springBoot.web.model.UserDTO;
 import java.util.Set;
 
 public interface UtilService {
+
     public Set<Role> getRoleForUser(String role);
 
     public User getConvertToUser(UserDTO userDTO);
-
-    }
+}
