@@ -1,12 +1,17 @@
 package springBoot.web.config.security;
 
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.stereotype.Component;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
-@Component
+@Configuration
 public class RestTemplateConfig {
-
-    private RestTemplate restTemplate;
-    
+    @Bean
+    public RestTemplate RestTemplateConfig(RestTemplateBuilder restTemplateBuilder) {
+        return  restTemplateBuilder
+                .rootUri("http://localhost:8081/api")
+                .basicAuthentication("admin", "admin")
+                .build();
+    }
 }

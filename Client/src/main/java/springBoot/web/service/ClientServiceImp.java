@@ -19,7 +19,9 @@ import java.util.Objects;
 @Service
 public class ClientServiceImp implements UserService, UserDetailsService {
 
+    @Autowired
     private RestTemplate restTemplate;
+
     private UtilService utilService;
 
     @Autowired
@@ -27,12 +29,6 @@ public class ClientServiceImp implements UserService, UserDetailsService {
         this.utilService = utilService;
     }
 
-    public ClientServiceImp(RestTemplateBuilder restTemplateBuilder) {
-        this.restTemplate = restTemplateBuilder
-                .rootUri("http://localhost:8081/api")
-                .basicAuthentication("admin", "admin")
-                .build();
-    }
 
     @Override
     public ResponseEntity<String> getAllUsers() {
@@ -65,7 +61,7 @@ public class ClientServiceImp implements UserService, UserDetailsService {
     public UserDetails loadUserByUsername(String email) {
         HttpHeaders headers = new HttpHeaders();
         HttpEntity request = new HttpEntity(headers);
-        return  utilService.getConvertToUser(Objects.requireNonNull(restTemplate.exchange("/getUser?email=" + email,
+        return utilService.getConvertToUser(Objects.requireNonNull(restTemplate.exchange("/getUser?email=" + email,
                 HttpMethod.POST,
                 request,
                 UserDTO.class)
