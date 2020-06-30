@@ -15,7 +15,6 @@ public class UserDTO implements Serializable {
     private String email;
     private int age;
     private String password;
-    @JsonProperty("springBoot")
     @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
     private List<Role> roles;
 
