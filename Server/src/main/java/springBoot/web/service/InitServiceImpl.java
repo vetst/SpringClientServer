@@ -7,7 +7,9 @@ import springBoot.web.dao.UserDao;
 import springBoot.web.model.Role;
 import springBoot.web.model.User;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -27,12 +29,12 @@ public class InitServiceImpl implements InitService {
 
             userDao.addRole(new Role("ADMIN"));
             userDao.addRole(new Role("USER"));
-            Set<Role> admin = new HashSet<>();
+            List<Role> admin = new ArrayList<>();
             admin.add(userDao.getRoleByName("ADMIN"));
             admin.add(userDao.getRoleByName("USER"));
             userDao.addUser(new User("Иван", "admin", "Иванов", "admin@mail.com", 35, admin));
 
-            Set<Role> user = new HashSet<>();
+            List<Role> user = new ArrayList<>();
             user.add(userDao.getRoleByName("USER"));
             userDao.addUser(new User("Петр", "user", "Петров", "user@mail.com", 25, user));
         }

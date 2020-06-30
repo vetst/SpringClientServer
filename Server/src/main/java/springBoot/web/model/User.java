@@ -1,6 +1,7 @@
 package springBoot.web.model;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -21,13 +22,12 @@ public class User {
     @Column(name = "password")
     private String password;
     @Column
-
-    @ManyToMany (fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    @ManyToMany (fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(name = "users_id"),
             inverseJoinColumns = @JoinColumn(name = "roles_id"))
-    private Set<Role> roles;
+    private List<Role> roles;
 
     public User() {
 
@@ -50,7 +50,7 @@ public class User {
         this.age = age;
     }
 
-    public User(String firstName, String password, String lastName, String email, int age, Set<Role> roles) {
+    public User(String firstName, String password, String lastName, String email, int age, List<Role> roles) {
         this.firstName = firstName;
         this.password = password;
         this.lastName = lastName;
@@ -59,7 +59,7 @@ public class User {
         this.roles = roles;
     }
 
-    public User(long id, String firstName, String lastName, int age, String email, String password, Set<Role> roles) {
+    public User(long id, String firstName, String lastName, int age, String email, String password, List<Role> roles) {
         this.id = id;
         this.firstName = firstName;
         this.password = password;
@@ -83,7 +83,7 @@ public class User {
         return roles.toString().replaceAll("\\p{P}", "");
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 

@@ -50,13 +50,13 @@ public class ServerDaoImp implements UserDao {
 
     @Override
     public boolean isNotReg(String email) {
-        User user;
-        user = (User)entityManager.createQuery("From User where email =:email")
-                .setParameter("email", email).getSingleResult();
-        return user.getEmail().equals(email);
-//        return getAllUsers()
-//                .stream()
-//                .anyMatch((e) -> e.getEmail().equals(email));
+//        User user;
+//        user = (User)entityManager.createQuery("From User where email =:email")
+//                .setParameter("email", email).getSingleResult();
+//        return user.getEmail().equals(email);
+        return getAllUsers()
+                .stream()
+                .anyMatch((e) -> e.getEmail().equals(email));
     }
 
     @Override

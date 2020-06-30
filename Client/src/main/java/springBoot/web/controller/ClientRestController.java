@@ -5,20 +5,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import springBoot.web.model.Role;
 import springBoot.web.model.User;
 import springBoot.web.model.UserDTO;
 import springBoot.web.service.UserService;
+import springBoot.web.util.UtilService;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
-
 
 @RestController
 @RequestMapping("/api/*")
 public class ClientRestController {
 
     private UserService userService;
+
+    @Autowired
+    public void setUtilService(UtilService utilService) {
+        this.utilService = utilService;
+    }
+
+    private UtilService utilService;
 
     @Autowired
     public ClientRestController(UserService userService) {
@@ -38,14 +46,15 @@ public class ClientRestController {
 
     @PostMapping("/admin/update")
     public ResponseEntity<User> updateUser(@RequestParam Long id, String firstName, String password, String lastName, String email, int age, String role) {
-
-        userService.updateUser(new UserDTO(id, firstName, lastName, email, age, password, role));
+        List<Role> convertRole = utilService.getRoleForUser(role);
+        userService.updateUser(new UserDTO(id, firstName, lastName, email, age, password, convertRole));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/admin/addUser")
     public ResponseEntity<User> addUser(@RequestParam String firstName, String password, String lastName, String email, int age, String role) {
-        UserDTO userDTO = new UserDTO(firstName, lastName, email, age, password, role);
+        List<Role> convertRole = utilService.getRoleForUser(role);
+        UserDTO userDTO = new UserDTO(firstName, lastName, email, age, password, convertRole);
         userService.addUser(userDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }

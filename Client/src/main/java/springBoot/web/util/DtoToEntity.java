@@ -5,7 +5,9 @@ import springBoot.web.model.Role;
 import springBoot.web.model.User;
 import springBoot.web.model.UserDTO;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Component
@@ -20,7 +22,7 @@ public class DtoToEntity implements UtilService {
         user.setEmail(userDTO.getEmail());
         user.setPassword(userDTO.getPassword());
         user.setAge(userDTO.getAge());
-        user.setRoles(getRoleForUser(userDTO.getRoles()));
+        user.setRoles(userDTO.getRoles());
         return user;
     }
 
@@ -37,8 +39,8 @@ public class DtoToEntity implements UtilService {
     }
 
     @Override
-    public Set<Role> getRoleForUser(String role) {
-        Set<Role> roles = new HashSet<>();
+    public List<Role> getRoleForUser(String role) {
+        List<Role> roles = new ArrayList<>();
         try {
             String[] partsRole = role.split("[, ]");
             roles.add(new Role(partsRole[1]));

@@ -1,15 +1,26 @@
 package springBoot.web.util;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import springBoot.web.model.Role;
 import springBoot.web.model.User;
 import springBoot.web.model.UserDTO;
+import springBoot.web.service.UserService;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Component
 public class DtoToEntity implements UtilService {
+
+    private UserService userService;
+
+    @Autowired
+    public DtoToEntity(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     public User getConvertToUser(UserDTO userDTO) {
@@ -20,34 +31,27 @@ public class DtoToEntity implements UtilService {
         user.setEmail(userDTO.getEmail());
         user.setPassword(userDTO.getPassword());
         user.setAge(userDTO.getAge());
-        user.setRoles(getRoleForUser(userDTO.getRoles()));
+        user.setRoles(userDTO.getRoles());
         return user;
     }
 
-    public UserDTO getConvertToUserDTO(User user) {
-        UserDTO userDTO = new UserDTO();
-        userDTO.setId(user.getId());
-        userDTO.setFirstName(user.getFirstName());
-        userDTO.setLastName(user.getLastName());
-        userDTO.setEmail(user.getEmail());
-        userDTO.setPassword(user.getPassword());
-        userDTO.setAge(user.getAge());
-        userDTO.setRoles(user.getRoles());
-        return userDTO;
-    }
 
     @Override
-    public Set<Role> getRoleForUser(String role) {
-        Set<Role> roles = new HashSet<>();
+    public List<Role> getRoleForUser(String role) {
+        List<Role> roles = new ArrayList<>();
+        Role indexRole = new Role();
         try {
             String[] partsRole = role.split("[, ]");
-            roles.add(new Role(partsRole[1]));
-            roles.add(new Role(partsRole[0]));
+            indexRole = userService.getRoleByName(partsRole[1]);
+            roles.add(indexRole);
+            indexRole = userService.getRoleByName(partsRole[0]);
+            roles.add(indexRole);
             return roles;
         } catch (Exception e) {
 
         }
-        roles.add(new Role(role));
+        indexRole = userService.getRoleByName(role);
+        roles.add(indexRole);
         return roles;
     }
 }

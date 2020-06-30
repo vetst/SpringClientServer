@@ -1,9 +1,12 @@
 package springBoot.web.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 public class User implements UserDetails {
@@ -14,9 +17,9 @@ public class User implements UserDetails {
     private String email;
     private int age;
     private String password;
-    private Set<Role> roles;
+    private List<Role> roles;
 
-    public User(long id, String firstName, String lastName, String email, int age, String password, Set<Role> roles) {
+    public User(long id, String firstName, String lastName, String email, int age, String password, List<Role> roles) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -116,11 +119,11 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public String getRoles() {
-        return roles.toString().replaceAll("\\p{P}", "");
+    public List<Role> getRoles() {
+        return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 }

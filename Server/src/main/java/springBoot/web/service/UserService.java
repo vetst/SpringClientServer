@@ -1,5 +1,6 @@
 package springBoot.web.service;
 
+import springBoot.web.model.Role;
 import springBoot.web.model.User;
 import java.util.List;
 
@@ -15,4 +16,6 @@ public interface UserService {
     public String ifPasswordNull(Long id, String password);
 
     public User getUserByName(String email);
+
+    public Role getRoleByName(String name);
 }

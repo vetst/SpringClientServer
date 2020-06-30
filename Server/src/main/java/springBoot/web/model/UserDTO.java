@@ -1,6 +1,7 @@
 package springBoot.web.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class UserDTO implements Serializable {
 
@@ -10,13 +11,13 @@ public class UserDTO implements Serializable {
     private String email;
     private int age;
     private String password;
-    private String roles;
+    private List<Role> roles;
 
     public UserDTO() {
 
     }
 
-    public UserDTO(long id, String firstName, String lastName, String email, int age, String password, String roles) {
+    public UserDTO(long id, String firstName, String lastName, String email, int age, String password, List<Role> roles) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -27,7 +28,7 @@ public class UserDTO implements Serializable {
 
     }
 
-    public UserDTO(String firstName, String lastName, String email, int age, String password, String roles) {
+    public UserDTO(String firstName, String lastName, String email, int age, String password, List<Role> roles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -84,11 +85,11 @@ public class UserDTO implements Serializable {
         this.password = password;
     }
 
-    public String getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(String roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 
