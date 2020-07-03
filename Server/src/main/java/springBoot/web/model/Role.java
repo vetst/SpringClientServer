@@ -1,5 +1,8 @@
 package springBoot.web.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "roles")
@@ -14,6 +17,11 @@ public class Role  {
 
     public Role() {
 
+    }
+
+    public Role(long id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
     public Role(String name) {
@@ -38,6 +46,10 @@ public class Role  {
 
     @Override
     public String toString() {
-        return name;
+        return "Role{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
+
 }

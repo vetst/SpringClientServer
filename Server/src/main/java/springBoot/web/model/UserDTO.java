@@ -25,7 +25,6 @@ public class UserDTO implements Serializable {
         this.age = age;
         this.password = password;
         this.roles = roles;
-
     }
 
     public UserDTO(String firstName, String lastName, String email, int age, String password, List<Role> roles) {

@@ -8,9 +8,7 @@ import springBoot.web.model.UserDTO;
 import springBoot.web.service.UserService;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Component
 public class DtoToEntity implements UtilService {

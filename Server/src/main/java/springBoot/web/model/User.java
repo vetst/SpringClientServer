@@ -79,8 +79,8 @@ public class User {
     }
 
 
-    public String getRoles() {
-        return roles.toString().replaceAll("\\p{P}", "");
+    public List<Role> getRoles() {
+        return roles;
     }
 
     public void setRoles(List<Role> roles) {
@@ -135,4 +135,16 @@ public class User {
         this.age = age;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", age=" + age +
+                ", password='" + password + '\'' +
+                ", roles=" + roles +
+                '}';
+    }
 }
