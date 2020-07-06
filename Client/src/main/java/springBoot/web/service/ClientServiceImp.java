@@ -32,7 +32,6 @@ public class ClientServiceImp implements UserService, UserDetailsService {
         this.utilService = utilService;
     }
 
-
     @Override
     public ResponseEntity<String> getAllUsers() {
         return restTemplate.getForEntity("/admin/users", String.class);
@@ -54,7 +53,6 @@ public class ClientServiceImp implements UserService, UserDetailsService {
 
     @Override
     public void updateUser(UserDTO userDTO) {
-
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<UserDTO> entity = new HttpEntity<>(userDTO, headers);
         restTemplate.postForObject("/admin/update", entity, UserDTO.class);

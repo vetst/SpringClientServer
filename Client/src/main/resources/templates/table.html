@@ -13,7 +13,8 @@
   <span class="navbar-text text-white">
       <b> <td th:utext="${user.email}"></td></b>
       <td>with roles:</td>
-      <td th:utext="${user.roles}"></td>
+      <td th:utext="${{user.roles[0]}}"></td>,
+      <td th:utext="${{user.roles[1]}}"></td>
   </span>
                 <a class="nav-link text-secondary font-weight-boldt  text-right" href="/logout">Logout</a>
             </nav>

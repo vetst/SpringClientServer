@@ -16,7 +16,7 @@ function getAllUsers() {
                     $('<td>').append($('<span>')).text(user.lastName),
                     $('<td>').append($('<span>')).text(user.age),
                     $('<td>').append($('<span>')).text(user.email),
-                    $('<td>').append($('<span>')).text(user.roles),
+                    $('<td>').append($('<span>')).text(user.roles.map(role => role.name)),
                     $('<td>').append($('<button>').text("Edit").attr({
                         "type": "button",
                         "class": "btn btn-primary edit",
@@ -132,7 +132,7 @@ function getUser() {
                     $('<td>').append($('<span>')).text(user.lastName),
                     $('<td>').append($('<span>')).text(user.age),
                     $('<td>').append($('<span>')).text(user.email),
-                    $('<td>').append($('<span>')).text(user.roles),
+                    $('<td>').append($('<span>')).text(user.roles.map(role => role.name)),
                     )
                 );
             });
