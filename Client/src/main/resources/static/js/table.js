@@ -48,7 +48,7 @@ $(document).on("click", ".edit", function () {
     $('#emailInput').val(user.email);
     $('#idInput').val(user.id);
     $('#ageInput').val(user.age);
-    $('#roleInput').val(user.roles);
+    $('#roleInput').val(user.roles.map(role => role.name));
 
 });
 
@@ -121,7 +121,7 @@ function getUser() {
         success: function (data) {
             console.log(data);
             $.each(data, function (i, user) {
-                if(user.roles == "USER") {
+                if(user.roles.map(role => role.name) == "USER") {
                     $('#menuUser').trigger('click');
                     $('#main2').trigger('click');
                     $('#blockMenuforAdmin').hide();

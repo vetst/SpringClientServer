@@ -6,19 +6,20 @@ import org.springframework.transaction.annotation.Transactional;
 import springBoot.web.dao.UserDao;
 import springBoot.web.model.Role;
 import springBoot.web.model.User;
-import springBoot.web.util.UtilService;
+import springBoot.web.util.DtoToEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class ServerServiceImp implements UserService {
 
     private UserDao dao;
-    private UtilService utilService;
+    private DtoToEntity dtoToEntity;
 
     @Autowired
-    public void setUtilService(UtilService utilService) {
-        this.utilService = utilService;
+    public void setUtilService(DtoToEntity dtoToEntity) {
+        this.dtoToEntity = dtoToEntity;
     }
 
     @Autowired
@@ -35,9 +36,24 @@ public class ServerServiceImp implements UserService {
     @Override
     public boolean addUser(User user) {
         if (user != null) {
-
-            dao.addUser(user);
-            return true;
+            List<Role> roles = user.getRoles();
+            List<Role> indexRoles = new ArrayList();
+            Role role;
+            if (roles.size() == 2) {
+                role = roles.get(0);
+                indexRoles.add(dao.getRoleByName(role.getName()));
+                role = roles.get(1);
+                indexRoles.add(dao.getRoleByName(role.getName()));
+                user.setRoles(indexRoles);
+                dao.addUser(user);
+                return true;
+            } else {
+                role = roles.get(0);
+                indexRoles.add(dao.getRoleByName(role.getName()));
+                user.setRoles(indexRoles);
+                dao.addUser(user);
+                return true;
+            }
         }
         return false;
     }
@@ -56,13 +72,28 @@ public class ServerServiceImp implements UserService {
     @Override
     public boolean updateUser(User user) {
         if (user != null) {
-            dao.updateUser(user);
-            return true;
+            List<Role> roles = user.getRoles();
+            List<Role> indexRoles = new ArrayList();
+            Role role;
+            if (roles.size() == 2) {
+                role = roles.get(0);
+                indexRoles.add(dao.getRoleByName(role.getName()));
+                role = roles.get(1);
+                indexRoles.add(dao.getRoleByName(role.getName()));
+                user.setRoles(indexRoles);
+                dao.updateUser(user);
+                return true;
+            } else {
+                role = roles.get(0);
+                indexRoles.add(dao.getRoleByName(role.getName()));
+                user.setRoles(indexRoles);
+                dao.updateUser(user);
+                return true;
+            }
         }
         return false;
     }
 
-    @Transactional
     @Override
     public String ifPasswordNull(Long id, String password) {
         if (password.trim().length() == 0) {
@@ -71,7 +102,6 @@ public class ServerServiceImp implements UserService {
         return password;
     }
 
-    @Transactional
     @Override
     public User getUserByName(String email) {
         return dao.getUserByName(email);

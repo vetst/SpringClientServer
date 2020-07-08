@@ -5,11 +5,12 @@ import springBoot.web.model.Role;
 import springBoot.web.model.User;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
-public class ServerDaoImp implements UserDao {
+public class UserDaoImpl implements UserDao {
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -20,7 +21,7 @@ public class ServerDaoImp implements UserDao {
     }
 
     @Override
-    public void addRole(Role role){
+    public void addRole(Role role) {
         entityManager.persist(role);
     }
 
@@ -50,13 +51,20 @@ public class ServerDaoImp implements UserDao {
 
     @Override
     public boolean isNotReg(String email) {
-//        User user;
-//        user = (User)entityManager.createQuery("From User where email =:email")
-//                .setParameter("email", email).getSingleResult();
-//        return user.getEmail().equals(email);
-        return getAllUsers()
-                .stream()
-                .anyMatch((e) -> e.getEmail().equals(email));
+        User user = null;
+        try {
+            user = (User) entityManager.createQuery("From User where email =:email")
+                    .setParameter("email", email).getSingleResult();
+        } catch (NoResultException nre) {
+
+        }
+        if (user != null) {
+            return true;
+        }
+        return false;
+//        return getAllUsers()
+//                .stream()
+//                .anyMatch((e) -> e.getEmail().equals(email));
     }
 
     @Override

@@ -9,7 +9,8 @@ import springBoot.web.model.Role;
 import springBoot.web.model.User;
 import springBoot.web.model.UserDTO;
 import springBoot.web.service.UserService;
-import springBoot.web.util.UtilService;
+import springBoot.web.util.DtoToEntity;
+import springBoot.web.util.UserRole;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -20,13 +21,13 @@ import java.util.List;
 public class ClientRestController {
 
     private UserService userService;
+    private UserRole userRole;
 
     @Autowired
-    public void setUtilService(UtilService utilService) {
-        this.utilService = utilService;
+    public void setUtilService(UserRole userRole) {
+        this.userRole = userRole;
     }
 
-    private UtilService utilService;
 
     @Autowired
     public ClientRestController(UserService userService) {
@@ -46,14 +47,14 @@ public class ClientRestController {
 
     @PostMapping("/admin/update")
     public ResponseEntity<User> updateUser(@RequestParam Long id, String firstName, String password, String lastName, String email, int age, String role) {
-        List<Role> convertRole = utilService.getRoleForUser(role);
+        List<Role> convertRole = userRole.getRoleForUser(role);
         userService.updateUser(new UserDTO(id, firstName, lastName, email, age, password, convertRole));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/admin/addUser")
     public ResponseEntity<User> addUser(@RequestParam String firstName, String password, String lastName, String email, int age, String role) {
-        List<Role> convertRole = utilService.getRoleForUser(role);
+        List<Role> convertRole = userRole.getRoleForUser(role);
         UserDTO userDTO = new UserDTO(firstName, lastName, email, age, password, convertRole);
         userService.addUser(userDTO);
         return new ResponseEntity<>(HttpStatus.OK);

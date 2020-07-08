@@ -11,7 +11,8 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.web.client.RestTemplate;
 import springBoot.web.model.UserDTO;
-import springBoot.web.util.UtilService;
+import springBoot.web.util.DtoToEntity;
+
 
 import java.util.Objects;
 
@@ -25,11 +26,11 @@ public class ClientServiceImp implements UserService, UserDetailsService {
         this.restTemplate = restTemplate;
     }
 
-    private UtilService utilService;
+    private DtoToEntity dtoToEntity;
 
     @Autowired
-    public void setUtilService(UtilService utilService) {
-        this.utilService = utilService;
+    public void setUtilService(DtoToEntity dtoToEntity) {
+        this.dtoToEntity = dtoToEntity;
     }
 
     @Override
@@ -62,7 +63,7 @@ public class ClientServiceImp implements UserService, UserDetailsService {
     public UserDetails loadUserByUsername(String email) {
         HttpHeaders headers = new HttpHeaders();
         HttpEntity request = new HttpEntity(headers);
-        return utilService.getConvertToUser(Objects.requireNonNull(restTemplate.exchange("/getUser?email=" + email,
+        return dtoToEntity.convert(Objects.requireNonNull(restTemplate.exchange("/getUser?email=" + email,
                 HttpMethod.POST,
                 request,
                 UserDTO.class)

@@ -2,6 +2,7 @@ package springBoot.web.service;
 
 import springBoot.web.model.Role;
 import springBoot.web.model.User;
+
 import java.util.List;
 
 public interface UserService {

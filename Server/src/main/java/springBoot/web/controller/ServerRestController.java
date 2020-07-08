@@ -8,7 +8,7 @@ import springBoot.web.model.User;
 import springBoot.web.model.UserDTO;
 import springBoot.web.service.InitService;
 import springBoot.web.service.UserService;
-import springBoot.web.util.UtilService;
+import springBoot.web.util.DtoToEntity;
 
 import java.util.List;
 
@@ -18,11 +18,11 @@ public class ServerRestController {
 
     private UserService service;
     private InitService initService;
-    private UtilService utilService;
+    private DtoToEntity dtoToEntity;
 
     @Autowired
-    public void setUtilService(UtilService utilService) {
-        this.utilService = utilService;
+    public void setUtilService(DtoToEntity dtoToEntity) {
+        this.dtoToEntity = dtoToEntity;
     }
 
     @Autowired
@@ -55,12 +55,12 @@ public class ServerRestController {
     @PostMapping("/admin/update")
     public void updateUser(@RequestBody UserDTO userDTO) {
         userDTO.setPassword(service.ifPasswordNull(userDTO.getId(), userDTO.getPassword()));
-        service.updateUser(utilService.getConvertToUser(userDTO));
+        service.updateUser(dtoToEntity.convert(userDTO));
     }
 
     @PostMapping("/admin/addUser")
     public ResponseEntity<User> addUser(@RequestBody UserDTO userDTO) {
-        service.addUser(utilService.getConvertToUser(userDTO));
+        service.addUser(dtoToEntity.convert(userDTO));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

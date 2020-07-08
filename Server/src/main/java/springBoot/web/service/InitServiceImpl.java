@@ -8,9 +8,7 @@ import springBoot.web.model.Role;
 import springBoot.web.model.User;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class InitServiceImpl implements InitService {
