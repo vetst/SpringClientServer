@@ -7,15 +7,21 @@ import springBoot.web.dao.UserDao;
 import springBoot.web.model.Role;
 import springBoot.web.model.User;
 import springBoot.web.util.DtoToEntity;
+import springBoot.web.util.UserRole;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ServerServiceImp implements UserService {
+public class UserServiceImpl implements UserService {
 
     private UserDao dao;
     private DtoToEntity dtoToEntity;
+    private UserRole userRole;
+
+    @Autowired
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
+    }
 
     @Autowired
     public void setUtilService(DtoToEntity dtoToEntity) {
@@ -23,7 +29,7 @@ public class ServerServiceImp implements UserService {
     }
 
     @Autowired
-    public ServerServiceImp(UserDao dao) {
+    public UserServiceImpl(UserDao dao) {
         this.dao = dao;
     }
 
@@ -36,24 +42,8 @@ public class ServerServiceImp implements UserService {
     @Override
     public boolean addUser(User user) {
         if (user != null) {
-            List<Role> roles = user.getRoles();
-            List<Role> indexRoles = new ArrayList();
-            Role role;
-            if (roles.size() == 2) {
-                role = roles.get(0);
-                indexRoles.add(dao.getRoleByName(role.getName()));
-                role = roles.get(1);
-                indexRoles.add(dao.getRoleByName(role.getName()));
-                user.setRoles(indexRoles);
-                dao.addUser(user);
-                return true;
-            } else {
-                role = roles.get(0);
-                indexRoles.add(dao.getRoleByName(role.getName()));
-                user.setRoles(indexRoles);
-                dao.addUser(user);
-                return true;
-            }
+            dao.addUser(userRole.getUserWithRole(user));
+            return true;
         }
         return false;
     }
@@ -72,24 +62,8 @@ public class ServerServiceImp implements UserService {
     @Override
     public boolean updateUser(User user) {
         if (user != null) {
-            List<Role> roles = user.getRoles();
-            List<Role> indexRoles = new ArrayList();
-            Role role;
-            if (roles.size() == 2) {
-                role = roles.get(0);
-                indexRoles.add(dao.getRoleByName(role.getName()));
-                role = roles.get(1);
-                indexRoles.add(dao.getRoleByName(role.getName()));
-                user.setRoles(indexRoles);
-                dao.updateUser(user);
-                return true;
-            } else {
-                role = roles.get(0);
-                indexRoles.add(dao.getRoleByName(role.getName()));
-                user.setRoles(indexRoles);
-                dao.updateUser(user);
-                return true;
-            }
+            dao.updateUser(userRole.getUserWithRole(user));
+            return true;
         }
         return false;
     }

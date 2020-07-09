@@ -9,7 +9,6 @@ import springBoot.web.model.Role;
 import springBoot.web.model.User;
 import springBoot.web.model.UserDTO;
 import springBoot.web.service.UserService;
-import springBoot.web.util.DtoToEntity;
 import springBoot.web.util.UserRole;
 
 import javax.servlet.http.HttpSession;

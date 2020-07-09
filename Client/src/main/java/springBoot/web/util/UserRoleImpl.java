@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class UserRoleImpl implements  UserRole{
+public class UserRoleImpl implements UserRole {
     @Override
     public List<Role> getRoleForUser(String role) {
         List<Role> roles = new ArrayList<>();

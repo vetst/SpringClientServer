@@ -1,15 +1,11 @@
 package springBoot.web.util;
 
 import org.springframework.stereotype.Component;
-import springBoot.web.model.Role;
 import springBoot.web.model.User;
 import springBoot.web.model.UserDTO;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Component
-public class DtoToEntityImpl implements DtoToEntity {
+public class ObjectEntityConversionImpl implements ObjectEntityConversion {
 
     @Override
     public User convert(UserDTO userDTO) {
@@ -24,7 +20,7 @@ public class DtoToEntityImpl implements DtoToEntity {
         return user;
     }
 
-    public UserDTO getConvertToUserDTO(User user) {
+    public UserDTO convert(User user) {
         UserDTO userDTO = new UserDTO();
         userDTO.setId(user.getId());
         userDTO.setFirstName(user.getFirstName());
@@ -35,5 +31,4 @@ public class DtoToEntityImpl implements DtoToEntity {
         userDTO.setRoles(user.getRoles());
         return userDTO;
     }
-
 }

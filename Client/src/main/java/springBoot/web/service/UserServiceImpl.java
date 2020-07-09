@@ -11,26 +11,26 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.web.client.RestTemplate;
 import springBoot.web.model.UserDTO;
-import springBoot.web.util.DtoToEntity;
+import springBoot.web.util.ObjectEntityConversion;
 
 
 import java.util.Objects;
 
 @Service
-public class ClientServiceImp implements UserService, UserDetailsService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     private RestTemplate restTemplate;
 
     @Autowired
-    public ClientServiceImp(RestTemplate restTemplate) {
+    public UserServiceImpl(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
-    private DtoToEntity dtoToEntity;
+    private ObjectEntityConversion objectEntityConversion;
 
     @Autowired
-    public void setUtilService(DtoToEntity dtoToEntity) {
-        this.dtoToEntity = dtoToEntity;
+    public void setUtilService(ObjectEntityConversion objectEntityConversion) {
+        this.objectEntityConversion = objectEntityConversion;
     }
 
     @Override
@@ -63,7 +63,7 @@ public class ClientServiceImp implements UserService, UserDetailsService {
     public UserDetails loadUserByUsername(String email) {
         HttpHeaders headers = new HttpHeaders();
         HttpEntity request = new HttpEntity(headers);
-        return dtoToEntity.convert(Objects.requireNonNull(restTemplate.exchange("/getUser?email=" + email,
+        return objectEntityConversion.convert(Objects.requireNonNull(restTemplate.exchange("/getUser?email=" + email,
                 HttpMethod.POST,
                 request,
                 UserDTO.class)

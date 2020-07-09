@@ -28,5 +28,4 @@ public class DtoToEntityImpl implements DtoToEntity {
         user.setRoles(userDTO.getRoles());
         return user;
     }
-
 }
